@@ -12,7 +12,8 @@ app.use(express.json()); // Middleware to parse JSON bodies
 
 // --- Routes ---
 app.use('/api/v1', apiRoutes);
-app.use('/u', webRoutes);
+// Correctly mount the web routes at the root level for the portal
+app.use('/', webRoutes);
 
 app.get('/generate-signed-url', generateSignedUrl);
 
