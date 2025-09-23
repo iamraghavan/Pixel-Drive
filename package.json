@@ -1,20 +1,19 @@
 {
-  "name": "node-express-api",
-  "description": "Simple api sample in Node",
+  "name": "my-project",
   "version": "1.0.0",
-  "private": true,
+  "description": "",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon index.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Google LLC",
-  "license": "Apache-2.0",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "express": "^4.21.2"
-  },
-  "devDependencies": {
-    "nodemon": "^3.0.1"
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "uuid": "^13.0.0"
   }
 }
