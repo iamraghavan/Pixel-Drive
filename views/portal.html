@@ -14,15 +14,21 @@
     </style>
 </head>
 <body>
-    <script>alert('Token verified successfully!');</script>
     <h1>Welcome to the Secure Portal!</h1>
     <p>Your access is verified.</p>
 
     <nav>
         <ul>
-            <li><a href="/assets/create">Create Asset</a></li>
-            <li><a href="/assets/recent">Recent Assets</a></li>
+            <li><a id="create-link" href="/portal/create-asset">Create Asset</a></li>
+            <li><a id="recent-link" href="/portal/recent-assets">Recent Assets</a></li>
         </ul>
     </nav>
+
+    <script>
+        // This script ensures the security signature is passed to the other portal pages.
+        const securityParams = window.location.search;
+        document.getElementById('create-link').href += securityParams;
+        document.getElementById('recent-link').href += securityParams;
+    </script>
 </body>
 </html>
