@@ -1,13 +1,18 @@
 import path from 'path';
 import { generateSignedUrl as signUrl } from '../utils/urlSigner.js';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export const showPortal = (req, res) => {
-    res.sendFile(path.resolve('views/portal.html'));
+    res.sendFile(path.join(__dirname, '../views/portal.html'));
 };
 
 export const generateSignedUrl = (req, res) => {
     const baseUrl = `${req.protocol}://${req.get('host')}`;
-    const pathToSign = '/u/portal/some-asset'; // example path
+    // Corrected path to match the new route structure, pointing to the portal's home.
+    const pathToSign = '/portal/home'; 
     const queryParams = {
         user: '123',
         session: 'abc'
