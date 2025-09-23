@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recent Assets</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; background-color: #f4f4f9; color: #333; }
+        h1 { color: #333; }
+        table { width: 100%; border-collapse: collapse; margin-top: 1em; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .filters { display: flex; gap: 1em; margin-bottom: 1em; align-items: center; }
+        .filters input, .filters select { padding: 8px; border-radius: 4px; border: 1px solid #ccc; }
+    </style>
+</head>
+<body>
+    <h1>Recent Assets</h1>
+    <div class="filters">
+        <input type="text" placeholder="Search Label">
+        <select>
+            <option>All Disks</option>
+        </select>
+        <select>
+            <option>All Visibilities</option>
+        </select>
+        <input type="text" placeholder="dd-mm-yyyy">
+        <span>Show 
+            <select>
+                <option>10</option>
+                <option>25</option>
+                <option>50</option>
+            </select>
+             entries
+        </span>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Label</th>
+                <th>Slug</th>
+                <th>Filename</th>
+                <th>Disk</th>
+                <th>Path / URL</th>
+                <th>Visibility</th>
+                <th>Public URL</th>
+                <th>Blade</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Asset rows will be dynamically inserted here -->
+        </tbody>
+    </table>
+</body>
+</html>

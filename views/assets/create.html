@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Asset</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; background-color: #f4f4f9; color: #333; }
+        h1, h2 { color: #333; }
+        .container { display: flex; gap: 2em; }
+        .form-section { background: #fff; padding: 1.5em; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); width: 45%; }
+        label { display: block; margin-top: 1em; font-weight: bold; }
+        input[type="text"], input[type="file"], select { width: 100%; padding: 8px; margin-top: 5px; border-radius: 4px; border: 1px solid #ccc; box-sizing: border-box; }
+        .optional-text { font-weight: normal; font-size: 0.9em; color: #666; }
+        .description { font-size: 0.9em; color: #666; margin-top: 2px; }
+        button { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; margin-top: 1.5em; }
+        button:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+    <h1>Asset Management</h1>
+    <div class="container">
+        <div class="form-section">
+            <h2>Register Asset</h2>
+            <form action="/api/assets/register" method="POST">
+                <label for="reg-label">Label *</label>
+                <input type="text" id="reg-label" name="label" required>
+                <p class="description">Human-friendly name. Used to suggest filename/slug.</p>
+
+                <label for="reg-filename">Filename <span class="optional-text">(optional)</span></label>
+                <input type="text" id="reg-filename" name="filename" placeholder="prospectus-2025.pdf">
+                <p class="description">If empty, we’ll infer from Path/URL.</p>
+
+                <label for="reg-slug">Slug <span class="optional-text">(optional)</span></label>
+                <input type="text" id="reg-slug" name="slug" placeholder="prospectus-2025">
+                <p class="description">Lowercase, letters/numbers/dashes only.</p>
+
+                <label for="reg-disk">Disk *</label>
+                <select id="reg-disk" name="disk" required>
+                    <option value="remote">Remote (CDN/URL)</option>
+                </select>
+
+                <label for="reg-path">Path or Full URL *</label>
+                <input type="text" id="reg-path" name="path" placeholder="/files/manuals/guide.pdf or https://cdn.jsdelivr.net/..." required>
+
+                <h3>Advanced Options</h3>
+                <label for="reg-mime">MIME <span class="optional-text">(optional)</span></label>
+                <input type="text" id="reg-mime" name="mime" placeholder="application/pdf">
+
+                <label for="reg-size">Size <span class="optional-text">(bytes, optional)</span></label>
+                <input type="text" id="reg-size" name="size">
+
+                <label for="reg-sha">SHA-256 <span class="optional-text">(optional)</span></label>
+                <input type="text" id="reg-sha" name="sha256" placeholder="64 hex chars">
+                <div>
+                    <input type="checkbox" id="reg-verify" name="verify_on_serve">
+                    <label for="reg-verify">Verify on serve?</label>
+                </div>
+
+                <label for="reg-disposition">Disposition</label>
+                <select id="reg-disposition" name="disposition">
+                    <option value="inline">Inline</option>
+                    <option value="attachment">Attachment</option>
+                </select>
+                
+                <label for="reg-visibility">Visibility</label>
+                <select id="reg-visibility" name="visibility">
+                    <option value="public">Public</option>
+                    <option value="private">Private</option>
+                </select>
+
+                <button type="submit">Create</button>
+            </form>
+        </div>
+
+        <div class="form-section">
+            <h2>Upload to GitHub + Register</h2>
+            <form action="/api/assets/upload" method="POST" enctype="multipart/form-data">
+                <label for="up-label">Label *</label>
+                <input type="text" id="up-label" name="label" required>
+                
+                <label for="up-filename">Filename <span class="optional-text">(optional)</span></label>
+                <input type="text" id="up-filename" name="filename" placeholder="prospectus-2025.pdf">
+                <p class="description">If empty, we’ll infer from the chosen file.</p>
+                
+                <label for="up-slug">Slug <span class="optional-text">(optional)</span></label>
+                <input type="text" id="up-slug" name="slug" placeholder="prospectus-2025">
+
+                <label for="up-file">File *</label>
+                <input type="file" id="up-file" name="file" required>
+                
+                <label for="up-repo-path">Repo Path *</label>
+                <input type="text" id="up-repo-path" name="repo_path" placeholder="assets/pdfs/mydoc.pdf" required>
+                <p class="description">CDN URL: https://cdn.jsdelivr.net/gh/owner/repo@main/path</p>
+
+                <label for="up-branch">Branch</label>
+                <input type="text" id="up-branch" name="branch" value="main">
+                
+                <label for="up-disposition">Disposition</label>
+                <select id="up-disposition" name="disposition">
+                    <option value="inline">Inline</option>
+                    <option value="attachment">Attachment</option>
+                </select>
+
+                <label for="up-visibility">Visibility</label>
+                <select id="up-visibility" name="visibility">
+                    <option value="public">Public</option>
+                    <option value="private">Private</option>
+                </select>
+
+                <div>
+                    <input type="checkbox" id="up-verify" name="verify_on_serve">
+                    <label for="up-verify">Verify SHA-256 on serve?</label>
+                </div>
+                
+                <button type="submit">Upload & Register</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

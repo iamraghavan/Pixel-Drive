@@ -4,10 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Secure Portal</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; background-color: #f4f4f9; color: #333; }
+        h1 { color: #333; }
+        nav ul { list-style: none; padding: 0; }
+        nav li { display: inline; margin-right: 1em; }
+        nav a { text-decoration: none; color: #007bff; font-weight: bold; }
+        nav a:hover { text-decoration: underline; }
+    </style>
 </head>
 <body>
     <script>alert('Token verified successfully!');</script>
     <h1>Welcome to the Secure Portal!</h1>
     <p>Your access is verified.</p>
+
+    <nav>
+        <ul>
+            <li><a href="/assets/create">Create Asset</a></li>
+            <li><a href="/assets/recent">Recent Assets</a></li>
+        </ul>
+    </nav>
 </body>
 </html>
