@@ -1,33 +1,22 @@
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { verifyApiKey } from '../middleware/verifyApiKey.js';
+import { portalController } from '../controllers/portalController.js';
+import { authMiddleware } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const portalController = (req, res) => {
-    const page = req.params.page || 'home';
-    const viewPath = (view) => path.join(__dirname, `../views/${view}.html`);
+// Route to serve the login page
+router.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, '../views/login.html'));
+});
 
-    switch(page) {
-        case 'create-asset':
-            res.sendFile(viewPath('assets/create'));
-            break;
-        case 'recent-assets':
-            res.sendFile(viewPath('assets/recent'));
-            break;
-        default:
-            res.sendFile(viewPath('portal'));
-            break;
-    }
-};
-
-router.get('/portal/:page', verifyApiKey, portalController);
-
-router.get('/portal', verifyApiKey, (req, res) => {
+// Protected portal routes
+router.get('/portal/:page', authMiddleware, portalController);
+router.get('/portal', authMiddleware, (req, res) => {
     req.params.page = 'home';
     portalController(req, res);
 });

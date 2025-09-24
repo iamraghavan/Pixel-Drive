@@ -1,27 +1,27 @@
-import express from 'express';
-import 'dotenv/config.js';
 
+import express from 'express';
+import session from 'express-session';
 import apiRoutes from './routes/api.js';
 import webRoutes from './routes/web.js';
-import { generateSignedUrl } from './controllers/portalController.js';
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(express.json()); // Middleware to parse JSON bodies
+app.use(express.json());
+app.use(express.static('public'));
 
-// --- Routes ---
-app.use('/api/v1', apiRoutes);
-// Correctly mount the web routes at the root level for the portal
+// Session middleware
+app.use(session({
+    secret: process.env.APP_KEY, // Use a strong secret
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: process.env.NODE_ENV === 'production' } // Use secure cookies in production
+}));
+
+// Routes
+app.use('/api', apiRoutes);
 app.use('/', webRoutes);
 
-app.get('/generate-signed-url', generateSignedUrl);
-
-app.get('/', (req, res) => {
-    res.send('Hello, this is the main page. Visit /generate-signed-url to get a link for the portal.');
-});
-
-// --- Server ---
 app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
+    console.log(`Server running on http://localhost:${port}`);
 });

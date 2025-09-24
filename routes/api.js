@@ -1,10 +1,14 @@
 import express from 'express';
-import { getAssets, getAssetById, createAsset } from '../controllers/assetController.js';
+import { assetController } from '../controllers/assetController.js';
+import { authController } from '../controllers/authController.js';
 
 const router = express.Router();
 
-router.get('/', getAssets);
-router.post('/', createAsset);
-router.get('/:id', getAssetById);
+// A protected route to get recent assets
+router.get('/assets/recent', assetController);
+
+// Route to handle API key authentication
+router.post('/auth', authController);
+
 
 export default router;

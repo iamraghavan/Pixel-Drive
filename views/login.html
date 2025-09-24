@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script>
+        async function login() {
+            const apiKey = prompt('Please enter your API Key:');
+            if (!apiKey) return;
+
+            const response = await fetch('/api/auth', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ apiKey })
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                window.location.href = '/portal';
+            } else {
+                alert(result.message);
+            }
+        }
+
+        // Automatically prompt for login when the page loads
+        window.onload = login;
+    </script>
+</head>
+<body>
+    <p>Redirecting to login...</p>
+</body>
+</html>
